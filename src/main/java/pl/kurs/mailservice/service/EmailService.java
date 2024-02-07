@@ -7,25 +7,21 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import pl.kurs.mailservice.model.CurrencyExchangePackage;
+import pl.kurs.mailservice.properties.EmailProperties;
 
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
-    @Value("${spring.mail.username}")
-    private String from;
-
-    @Value("${spring.mail.subject}")
-    private String subject;
-
     private final JavaMailSender emailSender;
+    private final EmailProperties emailProperties;
 
     @Async("asyncExecutor")
     public void sendMessage(String to, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
+        message.setFrom(emailProperties.getFrom());
         message.setTo(to);
-        message.setSubject(subject);
+        message.setSubject(emailProperties.getSubject());
         message.setText(content);
         emailSender.send(message);
     }
