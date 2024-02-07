@@ -9,9 +9,12 @@ import pl.kurs.mailservice.service.EmailService;
 @Component
 @RequiredArgsConstructor
 public class EmailReceiver {
-    private final EmailService service;
-    @RabbitListener(queues = "exchangeRateQueue")
+
+    private final EmailService emailService;
+
+
+    @RabbitListener(queues = "${app.rabbit.queueName}")
     private void fetchCurrencyExchange(CurrencyExchangePackage exchangePackage) {
-        service.sendConfirmation(exchangePackage);
+        emailService.sendConfirmation(exchangePackage);
     }
 }

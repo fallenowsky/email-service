@@ -1,6 +1,7 @@
 package pl.kurs.mailservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -11,26 +12,30 @@ import pl.kurs.mailservice.model.CurrencyExchangePackage;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private static final String SENDER_EMAIL = "testblabla@gmail.com";
+    @Value("${spring.mail.username}")
+    private String from;
+
+    @Value("${spring.mail.subject}")
+    private String subject;
 
     private final JavaMailSender emailSender;
 
     @Async("asyncExecutor")
-    private void sendMessage(String to, String subject, String text) {
+    public void sendMessage(String to, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(SENDER_EMAIL);
+        message.setFrom(from);
         message.setTo(to);
         message.setSubject(subject);
-        message.setText(text);
+        message.setText(content);
         emailSender.send(message);
     }
 
     public void sendConfirmation(CurrencyExchangePackage exchangePackage) {
-        String subject = "Currency exchanged";
-        StringBuilder builder = new StringBuilder();
-        builder.append("You have exchanged currency");
+        String message = "You have exchanged " + exchangePackage.getFrom() + " to " + exchangePackage.getTo() + "\n" +
+                "with the amount of " + exchangePackage.getAmount() + ".\n" +
+                "Exchanged amount is " + exchangePackage.getResult() + "PLN";
 
-        sendMessage(exchangePackage.getEmail(), subject, builder.toString());
+        sendMessage(exchangePackage.getEmail(), message);
     }
 }
 

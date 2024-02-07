@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 public class CurrencyExchangePackage {
+
     private String from;
     private String to;
     private double amount;
