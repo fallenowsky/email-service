@@ -18,5 +18,5 @@ spring:
     thread-pool: 4
 app:
   rabbit:
-    queueName: send_email_data
+    queueName: send_email_data_queue
 

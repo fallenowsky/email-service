@@ -7,8 +7,8 @@ import pl.kurs.mailservice.model.CurrencyExchangePackage;
 import pl.kurs.mailservice.service.EmailService;
 
 @Component
-@RequiredArgsConstructor
-public class EmailReceiver {
+@RequiredArgsConstructor //todo testy rabbita w kontenerze
+public class EmailDataReceiver {
 
     private final EmailService emailService;
 
