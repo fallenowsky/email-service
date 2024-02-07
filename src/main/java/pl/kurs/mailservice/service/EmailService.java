@@ -31,8 +31,8 @@ public class EmailService {
     }
 
     public void sendConfirmation(CurrencyExchangePackage exchangePackage) {
-        String message = "You have exchanged " + exchangePackage.getFrom() + " to " + exchangePackage.getTo() + "\n" +
-                "with the amount of " + exchangePackage.getAmount() + ".\n" +
+        String message = "You have exchanged " + exchangePackage.getFrom() + " to " + exchangePackage.getTo() +
+                " with the amount of " + exchangePackage.getAmount() + ".\n" +
                 "Exchanged amount is " + exchangePackage.getResult() + "PLN";
 
         sendMessage(exchangePackage.getEmail(), message);

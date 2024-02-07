@@ -1,20 +1,19 @@
 package pl.kurs.mailservice.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import pl.kurs.mailservice.properties.AsyncProperties;
 
 @Configuration
 public class AsyncConfig {
 
-    @Value("${spring.async.thread-pool}")
-    private int threads;
 
     @Bean
-    public ExecutorService asyncExecutor() {
-        return Executors.newFixedThreadPool(threads);
+    public ThreadPoolTaskExecutor asyncExecutor(AsyncProperties asyncProperties) {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setMaxPoolSize(asyncProperties.getThreadPool());
+        executor.initialize();
+        return executor;
     }
 }
