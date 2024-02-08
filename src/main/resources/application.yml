@@ -5,8 +5,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    from: javagroup638@gmail.com
-    password: bvctchfyyixyswhh
+    username: marcin.miaso.programista@gmail.com
+    password: gshfpnuyrvglifjp
     subject: Currency exchange confirmation
     properties:
       mail:
