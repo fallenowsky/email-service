@@ -13,7 +13,7 @@ public class EmailDataReceiver {
     private final EmailService emailService;
 
 
-    @RabbitListener(queues = "${app.rabbit.queueName}")
+    @RabbitListener(queues = "${app.rabbit.queue-name}")
     private void fetchCurrencyExchange(CurrencyExchangePackage exchangePackage) {
         emailService.sendConfirmation(exchangePackage);
     }

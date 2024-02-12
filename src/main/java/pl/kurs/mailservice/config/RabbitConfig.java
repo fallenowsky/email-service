@@ -21,6 +21,6 @@ public class RabbitConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue(rabbitProperties.getQueueName(), false);
+        return new Queue(rabbitProperties.getQueueName(), true);
     }
 }
