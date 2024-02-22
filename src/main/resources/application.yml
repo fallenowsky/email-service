@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: ${APP_PORT:8088}
 
 spring:
   mail:
@@ -13,6 +13,11 @@ spring:
         smtp:
           auth: true
           starttls.enable: true
+
+  rabbitmq:
+    addresses: ${RABBIT_ADDRESSES:localhost:5671}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
 
   async:
     thread-pool: 4
