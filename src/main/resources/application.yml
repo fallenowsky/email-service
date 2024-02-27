@@ -1,18 +1,23 @@
 server:
-  port: 8084
+  port: ${APP_PORT:8088}
 
 spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: marcin.miaso.programista@gmail.com
-    password: gshfpnuyrvglifjp
+    username: example.example@gmail.com
+    password: fegrthtrhty
     subject: Currency exchange confirmation
     properties:
       mail:
         smtp:
           auth: true
           starttls.enable: true
+
+  rabbitmq:
+    addresses: ${RABBIT_ADDRESSES:localhost:5671}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
 
   async:
     thread-pool: 4

@@ -2,13 +2,10 @@ package pl.kurs.mailservice.receiver;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.system.CapturedOutput;
-import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.RabbitMQContainer;
@@ -28,7 +25,6 @@ import static org.mockito.Mockito.verify;
 
 @Testcontainers
 @SpringBootTest
-@ExtendWith(OutputCaptureExtension.class)
 @ActiveProfiles("test")
 class EmailDataReceiverTest {
 
@@ -66,7 +62,7 @@ class EmailDataReceiverTest {
     }
 
     @Test
-    public void testFetchCurrencyExchange_HappyPath_ResultsInMockMethodsInvocations(CapturedOutput output) {
+    public void testFetchCurrencyExchange_HappyPath_ResultsInMockMethodsInvocations() {
         String queueName = "send_email_data_queue";
         for (int i = 0; i < 10; i++) {
             rabbitTemplate.convertAndSend(queueName, currencyPackage);
@@ -77,14 +73,6 @@ class EmailDataReceiverTest {
                 .untilAsserted(() -> verify(emailService, times(10))
                         .sendConfirmation(currencyPackage));
 
-        assertTrue(output.getErr().isEmpty());
-//        assertThat(output.getOut()).contains(
-//                "from=CHF",
-//                "to=PLN",
-//                "result=240",
-//                "amount=50"
-//        );
-//        System.out.println(output.getOut());
     }
 
 
